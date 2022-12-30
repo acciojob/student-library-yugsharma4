@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-
     @Query("select b from Book b where b.available =:availability and b.author in (select a from Author a where a.name =:author_name)")
     List<Book> findBooksByAuthor(String author_name, boolean availability);
 
@@ -28,5 +27,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Transactional
     @Query("update Book b set b.available =:#{#book.available}, b.card =:#{#book.card} where b.id =:#{#book.id}")
     int updateBook(Book book);
+
+    Boolean existsById(int id);
 
 }
